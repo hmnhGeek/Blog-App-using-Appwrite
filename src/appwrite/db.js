@@ -1,10 +1,9 @@
 import conf from "../conf/conf";
-import { Client, ID, Databases, Storage, Query } from "appwrite";
+import { Client, Databases, Query } from "appwrite";
 
-export class Service {
+class DatabaseService {
   client = new Client();
   databases;
-  bucket;
 
   constructor() {
     this.client
@@ -12,7 +11,6 @@ export class Service {
       .setProject(conf.appwriteProjectId);
 
     this.databases = new Databases(this.client);
-    this.bucket = new Storage(this.client);
   }
 
   async createPost({ title, slug, content, featuredImage, status, userId }) {
@@ -80,40 +78,8 @@ export class Service {
       return false;
     }
   }
-
-  async uploadFile(file) {
-    try {
-      return await this.bucket.createFile(
-        conf.appwriteBucketId,
-        ID.unique(),
-        file
-      );
-    } catch (error) {
-      console.log("Appwrite service :: uploadFile :: error", error);
-      return false;
-    }
-  }
-
-  async deleteFile(fileId) {
-    try {
-      await this.bucket.deleteFile(conf.appwriteBucketId, fileId);
-      return true;
-    } catch (error) {
-      console.log("Appwrite service :: deleteFile :: error", error);
-      return false;
-    }
-  }
-
-  getFilePreview(fileId) {
-    try {
-      return this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
-    } catch (error) {
-      console.log("Appwrite service :: getFilePreview :: error", error);
-      return false;
-    }
-  }
 }
 
-const service = new Service();
+const databaseService = new DatabaseService();
 
-export default service;
+export default databaseService;
