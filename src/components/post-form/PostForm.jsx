@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { Button, Input, RTE } from "../index";
+import { Button, Input, RTE, Select } from "../index";
 import bucketService from "../../appwrite/bucket";
 import databaseService from "../../appwrite/db";
 import { useSelector } from "react-redux";
@@ -123,7 +123,7 @@ function PostForm({ post }) {
         {post && (
           <div className="w-full mb-4">
             <img
-              src={appwriteService.getFilePreview(post.featuredImage)}
+              src={bucketService.getFilePreview(post.featuredImage)}
               alt={post.title}
               className="rounded-lg"
             />

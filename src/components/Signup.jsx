@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { login as storeLogin } from "../redux/features/authSlice";
 import { Input } from "./index";
+import { Logo, Button } from "./index";
+import { Link } from "react-router-dom";
 
 function Signup() {
   const [error, setError] = useState("");
