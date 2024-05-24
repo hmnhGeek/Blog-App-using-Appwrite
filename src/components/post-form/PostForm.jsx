@@ -25,7 +25,7 @@ function PostForm({ post }) {
       // you are updating the post...
       let newImageForUpload = data?.image[0];
       const file = newImageForUpload
-        ? bucketService.uploadFile(newImageForUpload)
+        ? await bucketService.uploadFile(newImageForUpload)
         : null;
 
       // if a new image is uploaded, delete the old one
