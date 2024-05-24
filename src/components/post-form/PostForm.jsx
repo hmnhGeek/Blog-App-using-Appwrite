@@ -25,7 +25,7 @@ function PostForm({ post }) {
       // you are updating the post...
       let newImageForUpload = data?.image[0];
       const file = newImageForUpload
-        ? bucketService.uploadFile(newImageForUpload)
+        ? await bucketService.uploadFile(newImageForUpload)
         : null;
 
       // if a new image is uploaded, delete the old one
@@ -47,7 +47,9 @@ function PostForm({ post }) {
       // you are creating a new post.
 
       // upload the image
-      let file = data.image[0] ? bucketService.uploadFile(data.image[0]) : null;
+      let file = data.image[0]
+        ? await bucketService.uploadFile(data.image[0])
+        : null;
 
       // if an image was uploaded, then set the featuredImage property in data.
       if (file) {
@@ -65,13 +67,13 @@ function PostForm({ post }) {
   };
 
   const slugTransform = useCallback((value) => {
-    if (value && typeof value === "string") {
+    if (value && typeof value === "string")
       return value
         .trim()
-        .toLocaleLowerCase()
-        .replace(/^[a-zA-Z\d\s]+/g, "-")
+        .toLowerCase()
+        .replace(/[^a-zA-Z\d\s]+/g, "-")
         .replace(/\s/g, "-");
-    }
+
     return "";
   }, []);
 
