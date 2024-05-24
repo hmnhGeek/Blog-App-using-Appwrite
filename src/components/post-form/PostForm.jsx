@@ -47,7 +47,9 @@ function PostForm({ post }) {
       // you are creating a new post.
 
       // upload the image
-      let file = data.image[0] ? bucketService.uploadFile(data.image[0]) : null;
+      let file = data.image[0]
+        ? await bucketService.uploadFile(data.image[0])
+        : null;
 
       // if an image was uploaded, then set the featuredImage property in data.
       if (file) {
